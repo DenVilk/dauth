@@ -41,7 +41,7 @@ def Policy(
 ## Examples
 Simple usage
 ```python
-from fastapi import Depends
+from fastapi import FastAPI, Depends
 from dauth import auth
 
 app = FastAPI()
