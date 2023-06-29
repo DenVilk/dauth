@@ -10,7 +10,7 @@ print(long_description)
 if __name__ == '__main__':
     setup(
         name='dauth',
-        version=os.getenv('PACKAGE_VERSION', '0.1'),
+        version="0.5",
         package_dir={'': 'src'},
         packages=find_packages('src', include=[
             'dauth*'
