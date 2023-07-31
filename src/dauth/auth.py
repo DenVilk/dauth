@@ -11,18 +11,16 @@ def Policy(
     resource_type: str, 
     method: str, 
     check_callback: Callable,
-    database_callback: Optional[Callable] = None,
-    cache_callback: Optional[Callable] = None
+    database: Optional[Database] = None,
+    cache: Optional[Redis] = None
 ):
     '''Function that give opportunity to work with Fastapi Depends'''
     def _check(
         subject: Any = Depends(subject_callback), 
         item_id: Union[str, int] = "*",
-        db: Optional[Database] = Depends(database_callback),
-        cache: Optional[Redis] = Depends(cache_callback)
     ) -> Any:
         '''Function that checks policy'''
-        check_callback(subject, resource_type, item_id, method, db, cache)
+        check_callback(subject, resource_type, item_id, method, database, cache)
         return subject
 
     return _check

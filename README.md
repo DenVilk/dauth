@@ -27,8 +27,8 @@ def Policy(
     resource_type: Any, 
     method: str, 
     check_callback: Callable,
-    database_callback: Union[Callable, None] = None,
-    cache_callback: Union[Callable, None] = None
+    database: Optional[Database] = None,
+    cache: Optional[Redis] = None
 )
 ```
 
@@ -43,10 +43,10 @@ def Policy(
 - - `resource_type` is argument of `Policy()`
 - - `item_id` __(by default '*')__ is providing by FastAPI decorator `@app.get(/test/{item_id})`
 - - `method` is argument of `Policy()`
-- - `db` is database connection, result of `Depends(database_callback)`
-- - `cache` is redis connection, result of `Depends(cache_callback)`
-- `database_callback` - Is a function for getting database connecion
-- `cache_callback` - Is a function for getting Redis connection
+- - `db` is database connection
+- - `cache` is redis connection
+- `database` - Is a database connecion
+- `cache` - Is a Redis connection
 ---
 ## Examples
 Simple usage
@@ -81,7 +81,7 @@ def test_db(
         'test', 
         'get', 
         is_admin, 
-        database_callback=get_database
+        database=Depends(get_database)
     ))
 ):
     return {"message":"Good"}
@@ -94,7 +94,7 @@ def test_cache(
         'test', 
         'get', 
         is_admin, 
-        cache_callback=get_cache
+        cache=Depends(get_cache)
     ))
 ):
     return {"message":"Good"}
