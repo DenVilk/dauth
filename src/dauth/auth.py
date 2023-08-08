@@ -24,3 +24,6 @@ def Policy(
         return subject
 
     return _check
+
+def AnyUser(*args, **kwargs):
+    pass
